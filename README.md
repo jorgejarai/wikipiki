@@ -1,34 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Wikipiki
 
-## Getting Started
+Wikipiki is a simple implementation of a (private) wiki made in Next.js, intended for displaying Markdown-formatted hypertext to a specific group of people. It uses MongoDB for storing the articles for the site and Auth0's `auth0-nextjs` for handling authentication.
 
-First, run the development server:
+As for now, it can handle multiple single-level pages on `/wiki`. Linking pages to others is _technically_ possible, but it needs improving when it comes to not using `next/link` and having to pass the absolute path for the target article.
 
-```bash
-npm run dev
-# or
-yarn dev
+The app is relatively functional, but I consider it to be in an experimental state as I add it more base features and fix any bugs it might have.
+
+## Set up
+
+Setting the app up is fairly straightforward:
+
+1. Get a Auth0 account and configure a tenant.
+2. Clone the repo.
+3. Set up the following environment variables:
+
+   - `MONGODB_URI`: The location of your MongoDB database.
+   - `AUTH0_SECRET`: A random secret for your Auth0 session cookie. It is optional, but I recommend using it. You can use `node -e "console.log(crypto.randomBytes(32).toString('hex'))"` for generating one.
+   - `AUTH0_BASE_URL`: The base URL for your app (e.g. http://localhost:3000 or https://mywiki.vercel.app)
+   - `AUTH0_ISSUER_BASE_URL`: The URL of your Auth0 tenant.
+   - `AUTH0_CLIENT_ID`: The client ID for your Auth0 app.
+   - `AUTH0_CLIENT_SECRET`: The secret for your client.
+   - `START_ARTICLE`: The article the app loads when the user lands on `/`.
+
+4. Build the project with `next build` and run the app with `next run`. If what you want to do is playing with the code, run instead `next dev` for running it in development mode.
+
+## Structure
+
+Upon loading the app on `/`, you'll be greeted with the Auth0 login page. Once you've logged in, the browser will show you to the main article you configured in `START_ARTICLE`.
+
+Every article must be a document located in the `wikipiki` collection, using the following schema:
+
+```json
+{
+  "title": "The title of your article",
+  "content": "Lorem ipsum, dolor sit amet..."
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can use Markdown tags in `content` as you please. For LaTeX equations, use `$` and `$$` for inline or display equations, respectively. The code you input can also be syntax highlighted by specifying the language:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+~~~javascript
+console.log('Hi, mom!');
+~~~
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## TODO
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[ ] Search articles (there's a search bar at the top, but it does nothing for now)
+[ ] Better hyperlinks
+[ ] An article editor for administrators
