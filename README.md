@@ -4,7 +4,7 @@ Wikipiki is a simple implementation of a (private) wiki made in Next.js, intende
 
 As for now, it can handle multiple single-level pages on `/wiki`. Linking pages to others is _technically_ possible, but it needs improving when it comes to not using `next/link` and having to pass the absolute path for the target article.
 
-The app is relatively functional, but I consider it to be in an experimental state as I add it more base features and fix any bugs it might have.
+The app is relatively functional, but I consider it to be in an experimental state as I add more base features to it and fix any bugs the app might have.
 
 ## Set up
 
