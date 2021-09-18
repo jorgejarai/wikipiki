@@ -6,24 +6,27 @@ import Header from '../src/components/Header';
 import fetchArticle from '../src/fetchArticle';
 
 interface IProps {
+  title: string;
   content: string;
 }
 
-const Home: NextPage<IProps> = ({ content }: IProps) => {
+const Home: NextPage<IProps> = ({ title, content }: IProps) => {
   return (
     <div className='flex flex-col h-screen'>
       <Header />
-      <Article title='Bienvenidx!' content={content} />
+      <Article title={title} content={content} />
     </div>
   );
 };
 
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async () => {
-    const content = await fetchArticle('Portada');
+    const title = process.env.START_ARTICLE!;
+    const content = await fetchArticle(title);
 
     return {
       props: {
+        title,
         content,
       },
     };
