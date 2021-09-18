@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 interface IProps {

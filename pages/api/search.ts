@@ -1,6 +1,6 @@
-// pages/api/protected.js
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import { searchDocuments } from '../../src/search';
 
 const search = async (req: NextApiRequest, res: NextApiResponse) => {

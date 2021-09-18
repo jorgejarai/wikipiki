@@ -2,8 +2,8 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import type { NextPage } from 'next';
 
 import Article from '../src/components/Article';
-import Header from '../src/components/Header';
 import fetchArticle from '../src/fetchArticle';
+import Header from '../src/components/Header';
 
 interface IProps {
   title: string;

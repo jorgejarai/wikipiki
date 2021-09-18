@@ -1,6 +1,6 @@
-import { UserProvider } from '@auth0/nextjs-auth0';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { UserProvider } from '@auth0/nextjs-auth0';
 
 import '../styles/globals.css';
 
