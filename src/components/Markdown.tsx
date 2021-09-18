@@ -18,26 +18,38 @@ const Markdown = ({ content }: IProps) => {
         a: ({ children, href, ...props }) => {
           if (href?.includes(':')) {
             // Outgoing hyperlink (has a scheme defined)
+
+            const urlEncoded = encodeURIComponent(href);
+
             return (
-              <a className='text-blue-700' href={href} {...props}>
+              <a className='text-blue-700' href={urlEncoded} {...props}>
                 {children}
               </a>
             );
           } else if (href?.startsWith('/')) {
             // Absolute hyperlink
+
+            const urlEncoded = encodeURIComponent(href.slice(1));
+
             return (
-              <Link href={`${href}`} {...props}>
+              <Link href={`/${urlEncoded}`} {...props}>
+                <a className='text-blue-700'>{children}</a>
+              </Link>
+            );
+          } else if (href !== undefined) {
+            // Hyperlink to an article (has no scheme nor refers to a path)
+
+            const urlEncoded = encodeURIComponent(href);
+
+            return (
+              <Link href={`/wiki/${urlEncoded}`} {...props}>
                 <a className='text-blue-700'>{children}</a>
               </Link>
             );
           }
 
-          // Hyperlink to an article (has no scheme nor refers to a path)
-          return (
-            <Link href={`/wiki/${href}`} {...props}>
-              <a className='text-blue-700'>{children}</a>
-            </Link>
-          );
+          // Invalid link
+          return null;
         },
         code: ({ node, inline, className, children, ...props }) => {
           const match = /language-(\w+)/.exec(className || '');
@@ -46,7 +58,12 @@ const Markdown = ({ content }: IProps) => {
               {String(children).replace(/\n$/, '')}
             </SyntaxHighlighter>
           ) : (
-            <code className={className} {...props}>
+            <code
+              className={`${
+                className !== undefined ? `${className} ` : ''
+              }bg-gray-200 px-1 py-0.5 rounded`}
+              {...props}
+            >
               {children}
             </code>
           );
