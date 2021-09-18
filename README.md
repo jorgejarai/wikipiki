@@ -47,6 +47,6 @@ console.log('Hi, mom!');
 
 ## TODO
 
-[ ] Search articles (there's a search bar at the top, but it does nothing for now)
-[ ] Better hyperlinks
-[ ] An article editor for administrators
+- [ ] Search articles (there's a search bar at the top, but it does nothing for now)
+- [ ] Better hyperlinks
+- [ ] An article editor for administrators
