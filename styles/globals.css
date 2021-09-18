@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+  ul,
+  ol {
+    @apply list-inside;
+    margin-left: 20px;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+  blockquote {
+    @apply text-gray-700;
+    margin: 0 40px 0;
+  }
+  a {
+    @apply text-blue-600;
+  }
+}

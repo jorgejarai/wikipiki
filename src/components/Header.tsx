@@ -13,7 +13,7 @@ const Header = () => {
             placeholder='Search'
           />
           <Link href='/api/auth/logout'>
-            <a className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'>
+            <a className='bg-gray-400 hover:bg-gray-500 rounded text-black px-3 py-1.5 cursor-pointer'>
               Log out
             </a>
           </Link>
