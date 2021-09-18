@@ -1,10 +1,11 @@
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import Article from '../../src/components/Article';
-import Header from '../../src/components/Header';
 import fetchArticle from '../../src/fetchArticle';
+import Header from '../../src/components/Header';
 import NotFoundPage from '../../src/NotFoundPage';
 
 interface IProps {
@@ -27,6 +28,10 @@ const Wiki: NextPage<IProps> = ({ title, content }) => {
 
   return (
     <div className='flex flex-col h-screen'>
+      <Head>
+        <title>{`${title} - Wikipiki`}</title>
+        <meta charSet='utf-8' />
+      </Head>
       <Header />
       <Article title={title} content={content} />
     </div>
