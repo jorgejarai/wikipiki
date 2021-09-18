@@ -46,7 +46,12 @@ const Markdown = ({ content }: IProps) => {
               {String(children).replace(/\n$/, '')}
             </SyntaxHighlighter>
           ) : (
-            <code className={className} {...props}>
+            <code
+              className={`${
+                className !== undefined ? `${className} ` : ''
+              }bg-gray-200 px-1 py-0.5 rounded`}
+              {...props}
+            >
               {children}
             </code>
           );
