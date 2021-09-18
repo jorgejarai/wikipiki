@@ -3,19 +3,31 @@ import type { NextPage } from 'next';
 
 import Article from '../src/components/Article';
 import Header from '../src/components/Header';
+import fetchArticle from '../src/fetchArticle';
 
-const Home: NextPage = () => {
+interface IProps {
+  content: string;
+}
+
+const Home: NextPage<IProps> = ({ content }: IProps) => {
   return (
     <div className='flex flex-col h-screen'>
       <Header />
-      <Article
-        title='Título'
-        content='Este es un ejemplo de integral definida: $\int_0^5 f(x) dx = F(x) \big|_0^5 = F(5) - F(0)$'
-      />
+      <Article title='Bienvenidx!' content={content} />
     </div>
   );
 };
 
-export const getServerSideProps = withPageAuthRequired();
+export const getServerSideProps = withPageAuthRequired({
+  getServerSideProps: async () => {
+    const content = await fetchArticle('Portada');
+
+    return {
+      props: {
+        content,
+      },
+    };
+  },
+});
 
 export default Home;
