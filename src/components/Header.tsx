@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const Header = () => {
   return (
     <header className='flex items-center p-6'>
@@ -10,9 +12,11 @@ const Header = () => {
             className='rounded bg-gray-300 px-2 py-1'
             placeholder='Search'
           />
-          <button className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'>
-            Log in
-          </button>
+          <Link href='/api/auth/logout'>
+            <a className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'>
+              Log out
+            </a>
+          </Link>
         </div>
       </nav>
     </header>

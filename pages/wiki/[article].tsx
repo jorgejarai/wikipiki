@@ -1,11 +1,10 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 
 import Article from '../../src/components/Article';
 import Header from '../../src/components/Header';
 import fetchArticle from '../../src/fetchArticle';
-import fetchArticleNames from '../../src/fetchArticleNames';
 import NotFoundPage from '../../src/NotFoundPage';
 
 interface IProps {
@@ -14,15 +13,16 @@ interface IProps {
   content: string;
 }
 
-interface IParams extends ParsedUrlQuery {
-  article: string;
-}
-
 const Wiki = ({ title, content }: IProps) => {
   const router = useRouter();
+  const { user, isLoading } = useUser();
 
-  if (router.isFallback) {
+  if (router.isFallback || isLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    router.push('/api/auth/login');
   }
 
   return (
@@ -33,35 +33,31 @@ const Wiki = ({ title, content }: IProps) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const titles = await fetchArticleNames();
-  const paths = titles.map((title) => ({ params: { article: title } }));
+export const getServerSideProps = withPageAuthRequired({
+  getServerSideProps: async ({ params }) => {
+    const { article: title } = params!;
 
-  return {
-    paths,
-    fallback: true,
-  };
-};
+    if (title === undefined) {
+      return {
+        props: NotFoundPage,
+      };
+    }
 
-export const getStaticProps: GetStaticProps<IProps, IParams> = async ({
-  params,
-}) => {
-  const { article: title } = params!;
+    const content = await fetchArticle(title as string);
 
-  const content = await fetchArticle(title);
+    if (content === undefined) {
+      return {
+        props: NotFoundPage,
+      };
+    }
 
-  if (content === undefined) {
     return {
-      props: NotFoundPage,
+      props: {
+        title: title,
+        content: content,
+      },
     };
-  }
-
-  return {
-    props: {
-      title: title,
-      content: content,
-    },
-  };
-};
+  },
+});
 
 export default Wiki;

@@ -1,3 +1,4 @@
+import { UserProvider } from '@auth0/nextjs-auth0';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
@@ -14,8 +15,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           crossOrigin='anonymous'
         />
       </Head>
-      <Component {...pageProps} />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </>
   );
 }
+
 export default MyApp;

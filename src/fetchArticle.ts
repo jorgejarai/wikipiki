@@ -2,9 +2,7 @@ import { MongoClient } from 'mongodb';
 
 const client = new MongoClient(process.env.MONGODB_URI!!);
 
-const fetchArticle = async (
-  title: string = 'Portada'
-): Promise<string | undefined> => {
+const fetchArticle = async (title: string): Promise<string | undefined> => {
   try {
     await client.connect();
 
