@@ -30,9 +30,6 @@
     @apply text-gray-700;
     margin: 0 40px;
   }
-  a {
-    @apply text-blue-600;
-  }
   p {
     margin: 8px 0;
   }

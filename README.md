@@ -2,8 +2,6 @@
 
 Wikipiki is a simple implementation of a (private) wiki made in Next.js, intended for displaying Markdown-formatted hypertext to a specific group of people. It uses MongoDB for storing the articles for the site and Auth0's `auth0-nextjs` for handling authentication.
 
-As for now, it can handle multiple single-level pages on `/wiki`. Linking pages to others is _technically_ possible, but it needs improving when it comes to not using `next/link` and having to pass the absolute path for the target article.
-
 The app is relatively functional, but I consider it to be in an experimental state as I add more base features to it and fix any bugs the app might have.
 
 ## Set up
@@ -48,5 +46,5 @@ console.log('Hi, mom!');
 ## TODO
 
 - [ ] Search articles (there's a search bar at the top, but it does nothing for now)
-- [ ] Better hyperlinks
+- [x] Better hyperlinks
 - [ ] An article editor for administrators
