@@ -1,6 +1,6 @@
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { ParsedUrlQuery } from 'querystring';
 
 import Article from '../../src/components/Article';
 import Header from '../../src/components/Header';
@@ -13,7 +13,7 @@ interface IProps {
   content: string;
 }
 
-const Wiki = ({ title, content }: IProps) => {
+const Wiki: NextPage<IProps> = ({ title, content }) => {
   const router = useRouter();
   const { user, isLoading } = useUser();
 
