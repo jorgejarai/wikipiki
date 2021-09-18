@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import SearchBar from './SearchBar';
 
 const Header = () => {
   return (
@@ -7,11 +8,7 @@ const Header = () => {
       <nav className='flex-grow flex'>
         <div className='flex-grow'></div>
         <div className='flex space-x-2'>
-          <input
-            type='search'
-            className='rounded bg-gray-300 px-2 py-1'
-            placeholder='Search'
-          />
+          <SearchBar />
           <Link href='/api/auth/logout'>
             <a className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'>
               Log out
