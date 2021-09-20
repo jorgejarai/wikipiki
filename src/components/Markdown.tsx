@@ -16,30 +16,35 @@ const Markdown = ({ content }: IProps) => {
       rehypePlugins={[rehypeKatex]}
       components={{
         a: ({ children, href, ...props }) => {
-          if (href?.includes(':')) {
-            // Outgoing hyperlink (has a scheme defined)
+          const unescaped = href
+            ?.replace(/\\_/g, '%5C')
+            .replaceAll('_', ' ')
+            .replaceAll('%5C', '_');
 
-            const urlEncoded = encodeURIComponent(href);
+          if (unescaped === undefined) {
+            return null;
+          }
+
+          const urlEncoded = encodeURIComponent(unescaped);
+
+          if (urlEncoded.includes(':')) {
+            // Outgoing hyperlink (has a scheme defined)
 
             return (
               <a className='text-blue-700' href={urlEncoded} {...props}>
                 {children}
               </a>
             );
-          } else if (href?.startsWith('/')) {
+          } else if (urlEncoded.startsWith('%2F')) {
             // Absolute hyperlink
 
-            const urlEncoded = encodeURIComponent(href.slice(1));
-
             return (
-              <Link href={`/${urlEncoded}`} {...props}>
+              <Link href={`/${unescaped.slice(1)}`} {...props}>
                 <a className='text-blue-700'>{children}</a>
               </Link>
             );
-          } else if (href !== undefined) {
+          } else {
             // Hyperlink to an article (has no scheme nor refers to a path)
-
-            const urlEncoded = encodeURIComponent(href);
 
             return (
               <Link href={`/wiki/${urlEncoded}`} {...props}>
@@ -47,9 +52,6 @@ const Markdown = ({ content }: IProps) => {
               </Link>
             );
           }
-
-          // Invalid link
-          return null;
         },
         code: ({ node, inline, className, children, ...props }) => {
           const match = /language-(\w+)/.exec(className || '');
