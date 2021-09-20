@@ -18,8 +18,8 @@ const Markdown = ({ content }: IProps) => {
         a: ({ children, href, ...props }) => {
           const unescaped = href
             ?.replace(/\\_/g, '%5C')
-            .replaceAll('_', ' ')
-            .replaceAll('%5C', '_');
+            .replace(/_/g, ' ')
+            .replace(/%5C/g, '_');
 
           if (unescaped === undefined) {
             return null;
