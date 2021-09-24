@@ -33,7 +33,9 @@ const Wiki: NextPage<IProps> = ({ title, content }) => {
         <meta charSet='utf-8' />
       </Head>
       <Header />
-      <Article title={title} content={content} />
+      <div className='pb-16'>
+        <Article title={title} content={content} />
+      </div>
     </div>
   );
 };
