@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.4.0] - 2021-11-15
+
+### Added
+
+- Create the Administrator role
+- Administrators can create, edit and delete articles
+
+### Fixed
+
+- Protect the /api/search route from non-logged users
+
+### Removed
+
+- Remove breadcrumbs from articles, since they're deemed unnecessary (articles
+  can be categorized in the MediaWiki way (e.g. Programming/Python))
+
 ## [0.3.4] - 2021-09-24
 
 ### Added
