@@ -6,6 +6,7 @@ import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Article from '../../../src/components/Article';
 import fetchArticle from '../../../src/fetchArticle';
 import Header from '../../../src/components/Header';
+import Loading from '../../../src/components/Loading';
 import NotFoundPage from '../../../src/NotFoundPage';
 import fetchRoles from '../../../src/fetchRoles';
 
@@ -21,7 +22,7 @@ const Wiki: NextPage<IProps> = ({ showEdit, title, content, roles }) => {
   const { user, isLoading } = useUser();
 
   if (router.isFallback || isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!user) {

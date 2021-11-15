@@ -5,6 +5,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Article from '../src/components/Article';
 import Editor from '../src/components/Editor';
 import Header from '../src/components/Header';
+import Loading from '../src/components/Loading';
 import fetchRoles from '../src/fetchRoles';
 import UnauthorizedPage from '../src/UnauthorizedPage';
 
@@ -16,7 +17,7 @@ const WikiEdit = ({ roles }: IProps) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!roles?.includes('Administrators')) {
