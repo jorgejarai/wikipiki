@@ -22,6 +22,32 @@ const Editor = ({
   const [preview, setPreview] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this post?')) {
+      return;
+    }
+
+    const body = JSON.stringify({
+      title: create ? newTitle : title,
+    });
+
+    const response = await fetch('/api/delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body,
+    });
+
+    if (response.ok) {
+      router.push('/');
+    } else {
+      const data = await response.json();
+
+      setErrorMessage(data.message);
+    }
+  };
+
   const handleSubmit = async () => {
     setErrorMessage('');
 
@@ -58,8 +84,14 @@ const Editor = ({
       <div className='w-full px-12 md:px-0 flex space-x-2 justify-end self-start'>
         <Checkbox label='Preview' checked={preview} onChange={setPreview} />
         <button
+          onClick={handleDelete}
+          className='bg-red-400 hover:bg-red-500 text-black rounded px-3 py-1.5 cursor-pointer'
+        >
+          Delete
+        </button>
+        <button
           onClick={handleSubmit}
-          className='self-end bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'
+          className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'
         >
           Submit
         </button>
