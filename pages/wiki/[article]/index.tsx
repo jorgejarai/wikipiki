@@ -3,14 +3,13 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 
-import Article from '../../src/components/Article';
-import fetchArticle from '../../src/fetchArticle';
-import Header from '../../src/components/Header';
-import NotFoundPage from '../../src/NotFoundPage';
+import Article from '../../../src/components/Article';
+import fetchArticle from '../../../src/fetchArticle';
+import Header from '../../../src/components/Header';
+import NotFoundPage from '../../../src/NotFoundPage';
 
 interface IProps {
   title: string;
-  breadcrumbs?: string[];
   content: string;
 }
 
