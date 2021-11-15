@@ -26,7 +26,9 @@ const edit = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { title, content } = req.body;
 
-  if (content === '') {
+  // title should always be defined in regular use cases, so the error
+  // message only complains about the lack of content
+  if (title === '' || content === '') {
     return res.status(400).setHeader('Allow', 'POST, OPTIONS').json({
       status: 'error',
       message: 'Content is empty',
