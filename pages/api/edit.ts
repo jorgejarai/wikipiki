@@ -1,5 +1,6 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import fetchRoles from '../../src/fetchRoles';
 import updateArticle from '../../src/updateArticle';
 

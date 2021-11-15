@@ -3,8 +3,8 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import Article from '../src/components/Article';
-import fetchArticle from '../src/fetchArticle';
 import Header from '../src/components/Header';
+import fetchArticle from '../src/fetchArticle';
 import fetchRoles from '../src/fetchRoles';
 
 interface IProps {

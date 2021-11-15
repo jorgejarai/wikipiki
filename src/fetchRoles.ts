@@ -1,5 +1,4 @@
 import { getSession } from '@auth0/nextjs-auth0';
-import { NextApiRequest, NextApiResponse } from 'next';
 
 const parseJwt = (token: string): { [key: string]: any } => {
   const base64Url = token.split('.')[1];

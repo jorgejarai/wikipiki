@@ -1,14 +1,14 @@
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import Article from '../../../src/components/Article';
-import fetchArticle from '../../../src/fetchArticle';
 import Header from '../../../src/components/Header';
 import Loading from '../../../src/components/Loading';
-import NotFoundPage from '../../../src/NotFoundPage';
+import fetchArticle from '../../../src/fetchArticle';
 import fetchRoles from '../../../src/fetchRoles';
+import NotFoundPage from '../../../src/NotFoundPage';
 
 interface IProps {
   showEdit: boolean;
