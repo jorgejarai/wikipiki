@@ -26,10 +26,9 @@ const SearchBar = () => {
       const urlEncoded = encodeURIComponent(debouncedSearch);
 
       const res = await fetch(`/api/search?q=${urlEncoded}`);
-      const body = await res.json();
-      const { results, found } = body;
+      const { results } = await res.json();
 
-      setResults(found ? results : []);
+      setResults(results || []);
       setLoaded(true);
     };
 

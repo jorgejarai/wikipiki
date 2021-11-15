@@ -7,7 +7,7 @@ const search = async (req: NextApiRequest, res: NextApiResponse) => {
   const search = req.query['q'] as string;
 
   if (search === '') {
-    return res.json([]);
+    return res.json({ results: [] });
   }
 
   const results = await searchDocuments(search);
