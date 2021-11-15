@@ -1,28 +1,28 @@
+import Link from 'next/link';
+
 import Markdown from './Markdown';
 
 interface IProps {
   title: string;
-  breadcrumbs?: string[];
   content: string;
+  roles: string[] | null;
 }
 
-const Article = ({ title, breadcrumbs, content }: IProps) => {
+const Article = ({ title, content, roles }: IProps) => {
   return (
     <section className='flex-grow overflow-y-auto flex flex-col items-center'>
-      <header className='w-full md:w-2/3 px-8 md:px-0'>
-        {breadcrumbs && (
-          <div className='text-sm flex'>
-            {breadcrumbs.map((crumb, idx) => {
-              return (
-                <div key={idx} className='cursor-pointer'>
-                  {idx !== 0 && <span className='text-gray-400 px-1'>/</span>}
-                  <span>{crumb}</span>
-                </div>
-              );
-            })}
-          </div>
-        )}
+      <header className='flex flex-col md:flex-row md:items-center space-y-2 w-full md:w-2/3 px-8 md:px-0'>
         <h1 className='pt-2 text-4xl font-bold'>{title}</h1>
+        {roles?.includes('Administrators') && (
+          <Link href={`/wiki/${title}/edit`}>
+            <a
+              onClick={() => {}}
+              className='self-start md:self-end md:ml-auto bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'
+            >
+              Edit
+            </a>
+          </Link>
+        )}
       </header>
       <article className='pt-4 w-full md:w-2/3 px-8 md:px-0 text-justify'>
         <Markdown content={content} />
