@@ -43,11 +43,13 @@ const Wiki: NextPage<IProps> = ({ title, content, roles }) => {
 
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async ({ req, res, params }) => {
+    const roles = await fetchRoles(req, res);
+
     const { article: title } = params!;
 
     if (title === undefined) {
       return {
-        props: NotFoundPage,
+        props: { ...NotFoundPage, roles },
       };
     }
 
@@ -55,11 +57,9 @@ export const getServerSideProps = withPageAuthRequired({
 
     if (content === undefined) {
       return {
-        props: NotFoundPage,
+        props: { ...NotFoundPage, roles },
       };
     }
-
-    const roles = await fetchRoles(req, res);
 
     return {
       props: {
