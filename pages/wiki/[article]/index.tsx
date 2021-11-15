@@ -10,12 +10,13 @@ import NotFoundPage from '../../../src/NotFoundPage';
 import fetchRoles from '../../../src/fetchRoles';
 
 interface IProps {
+  showEdit: boolean;
   title: string;
   content: string;
   roles: string[] | null;
 }
 
-const Wiki: NextPage<IProps> = ({ title, content, roles }) => {
+const Wiki: NextPage<IProps> = ({ showEdit, title, content, roles }) => {
   const router = useRouter();
   const { user, isLoading } = useUser();
 
@@ -35,7 +36,12 @@ const Wiki: NextPage<IProps> = ({ title, content, roles }) => {
       </Head>
       <Header roles={roles} />
       <div className='pb-16'>
-        <Article title={title} content={content} roles={roles} />
+        <Article
+          title={title}
+          content={content}
+          roles={roles}
+          showEdit={showEdit}
+        />
       </div>
     </div>
   );
@@ -49,7 +55,7 @@ export const getServerSideProps = withPageAuthRequired({
 
     if (title === undefined) {
       return {
-        props: { ...NotFoundPage, roles },
+        props: { ...NotFoundPage, roles, showEdit: false },
       };
     }
 
@@ -57,7 +63,7 @@ export const getServerSideProps = withPageAuthRequired({
 
     if (content === undefined) {
       return {
-        props: { ...NotFoundPage, roles },
+        props: { ...NotFoundPage, roles, showEdit: false },
       };
     }
 
@@ -65,6 +71,7 @@ export const getServerSideProps = withPageAuthRequired({
       props: {
         title: title,
         content: content,
+        showEdit: true,
         roles,
       },
     };
