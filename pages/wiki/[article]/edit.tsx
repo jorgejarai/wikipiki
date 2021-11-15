@@ -31,7 +31,7 @@ const WikiEdit = ({ title, content, roles }: IProps) => {
         <Head>
           <title>{`${title} - Wikipiki`}</title>
         </Head>
-        <Header />
+        <Header roles={roles} />
         <div className='pb-16 h-full'>
           <Article title={title} content={content} roles={roles} />
         </div>
@@ -45,7 +45,7 @@ const WikiEdit = ({ title, content, roles }: IProps) => {
         <Head>
           <title>{`${title} - Wikipiki`}</title>
         </Head>
-        <Header />
+        <Header roles={roles} />
         <div className='pb-16 h-full'>
           <Article
             title={NotFoundPage.title}
@@ -62,7 +62,7 @@ const WikiEdit = ({ title, content, roles }: IProps) => {
       <Head>
         <title>{`Editing ${title} - Wikipiki`}</title>
       </Head>
-      <Header />
+      <Header roles={roles} />
       <div className='h-full'>
         <Editor title={title} initialContent={content} />
       </div>

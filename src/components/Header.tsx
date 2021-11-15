@@ -2,7 +2,11 @@ import Link from 'next/link';
 
 import SearchBar from './SearchBar';
 
-const Header = () => {
+interface IProps {
+  roles: string[] | null;
+}
+
+const Header = ({ roles }: IProps) => {
   return (
     <header className='flex items-center p-6'>
       <Link href='/'>
@@ -11,6 +15,13 @@ const Header = () => {
       <nav className='flex-grow flex'>
         <div className='flex-grow'></div>
         <div className='flex space-x-2'>
+          {roles?.includes('Administrators') && (
+            <Link href='/new'>
+              <a className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 mr-2 cursor-pointer'>
+                New article
+              </a>
+            </Link>
+          )}
           <SearchBar />
           <Link href='/api/auth/logout'>
             <a className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'>

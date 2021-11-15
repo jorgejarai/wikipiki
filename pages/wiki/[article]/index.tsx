@@ -33,7 +33,7 @@ const Wiki: NextPage<IProps> = ({ title, content, roles }) => {
         <title>{`${title} - Wikipiki`}</title>
         <meta charSet='utf-8' />
       </Head>
-      <Header />
+      <Header roles={roles} />
       <div className='pb-16'>
         <Article title={title} content={content} roles={roles} />
       </div>
