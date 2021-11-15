@@ -7,13 +7,15 @@ import Article from '../../../src/components/Article';
 import fetchArticle from '../../../src/fetchArticle';
 import Header from '../../../src/components/Header';
 import NotFoundPage from '../../../src/NotFoundPage';
+import fetchRoles from '../../../src/fetchRoles';
 
 interface IProps {
   title: string;
   content: string;
+  roles: string[] | null;
 }
 
-const Wiki: NextPage<IProps> = ({ title, content }) => {
+const Wiki: NextPage<IProps> = ({ title, content, roles }) => {
   const router = useRouter();
   const { user, isLoading } = useUser();
 
@@ -33,14 +35,14 @@ const Wiki: NextPage<IProps> = ({ title, content }) => {
       </Head>
       <Header />
       <div className='pb-16'>
-        <Article title={title} content={content} />
+        <Article title={title} content={content} roles={roles} />
       </div>
     </div>
   );
 };
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ params }) => {
+  getServerSideProps: async ({ req, res, params }) => {
     const { article: title } = params!;
 
     if (title === undefined) {
@@ -57,10 +59,13 @@ export const getServerSideProps = withPageAuthRequired({
       };
     }
 
+    const roles = await fetchRoles(req, res);
+
     return {
       props: {
         title: title,
         content: content,
+        roles,
       },
     };
   },

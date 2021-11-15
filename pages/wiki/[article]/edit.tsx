@@ -7,17 +7,36 @@ import Editor from '../../../src/components/Editor';
 import Header from '../../../src/components/Header';
 import NotFoundPage from '../../../src/NotFoundPage';
 import fetchArticle from '../../../src/fetchArticle';
+import fetchRoles from '../../../src/fetchRoles';
+import UnauthorizedPage from '../../../src/UnauthorizedPage';
 
 interface IProps {
   title: string;
   content: string;
+  roles: string[] | null;
 }
 
-const WikiEdit = ({ title, content }: IProps) => {
+const WikiEdit = ({ title, content, roles }: IProps) => {
   const router = useRouter();
 
   if (router.isFallback) {
     return <div>Loading...</div>;
+  }
+
+  if (!roles?.includes('Administrators')) {
+    const { title, content } = UnauthorizedPage;
+
+    return (
+      <div className='flex flex-col h-screen'>
+        <Head>
+          <title>{`${title} - Wikipiki`}</title>
+        </Head>
+        <Header />
+        <div className='pb-16 h-full'>
+          <Article title={title} content={content} roles={roles} />
+        </div>
+      </div>
+    );
   }
 
   if (title === null || content === null) {
@@ -28,7 +47,11 @@ const WikiEdit = ({ title, content }: IProps) => {
         </Head>
         <Header />
         <div className='pb-16 h-full'>
-          <Article title={NotFoundPage.title} content={NotFoundPage.content} />
+          <Article
+            title={NotFoundPage.title}
+            content={NotFoundPage.content}
+            roles={roles}
+          />
         </div>
       </div>
     );
@@ -48,14 +71,16 @@ const WikiEdit = ({ title, content }: IProps) => {
 };
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ params }) => {
+  getServerSideProps: async ({ req, res, params }) => {
     const { article: title } = params!;
+    const roles = await fetchRoles(req, res);
 
     if (title === undefined) {
       return {
         props: {
           title,
           content: null,
+          roles,
         },
       };
     }
@@ -67,6 +92,7 @@ export const getServerSideProps = withPageAuthRequired({
         props: {
           title,
           content: null,
+          roles,
         },
       };
     }
@@ -75,6 +101,7 @@ export const getServerSideProps = withPageAuthRequired({
       props: {
         title,
         content,
+        roles,
       },
     };
   },

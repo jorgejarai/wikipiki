@@ -1,5 +1,6 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
+import fetchRoles from '../../src/fetchRoles';
 import updateArticle from '../../src/updateArticle';
 
 const edit = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -11,6 +12,15 @@ const edit = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).setHeader('Allow', 'POST, OPTIONS').json({
       status: 'error',
       message: 'Method not allowed',
+    });
+  }
+
+  const roles = await fetchRoles(req, res);
+
+  if (!roles?.includes('Administrators')) {
+    return res.status(403).json({
+      status: 'error',
+      message: 'You do not have permission to edit articles',
     });
   }
 

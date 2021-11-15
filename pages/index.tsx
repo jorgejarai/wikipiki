@@ -5,13 +5,15 @@ import Head from 'next/head';
 import Article from '../src/components/Article';
 import fetchArticle from '../src/fetchArticle';
 import Header from '../src/components/Header';
+import fetchRoles from '../src/fetchRoles';
 
 interface IProps {
   title: string;
   content: string;
+  roles: string[] | null;
 }
 
-const Home: NextPage<IProps> = ({ title, content }: IProps) => {
+const Home: NextPage<IProps> = ({ title, content, roles }: IProps) => {
   return (
     <div className='flex flex-col h-screen'>
       <Head>
@@ -20,21 +22,23 @@ const Home: NextPage<IProps> = ({ title, content }: IProps) => {
       </Head>
       <Header />
       <div className='pb-16'>
-        <Article title={title} content={content} />
+        <Article title={title} content={content} roles={roles} />
       </div>
     </div>
   );
 };
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async () => {
+  getServerSideProps: async ({ req, res }) => {
     const title = process.env.START_ARTICLE!;
     const content = await fetchArticle(title);
+    const roles = await fetchRoles(req, res);
 
     return {
       props: {
         title,
         content,
+        roles,
       },
     };
   },
