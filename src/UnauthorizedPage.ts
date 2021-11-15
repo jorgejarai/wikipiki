@@ -1,6 +1,6 @@
 const UnauthorizedPage = {
   title: 'No autorizado',
-  content: 'Lo siento, pero no tienes permiso para editar este artículo.',
+  content: 'Lo siento, pero no tienes permiso para hacer esto.',
 };
 
 export default UnauthorizedPage;
