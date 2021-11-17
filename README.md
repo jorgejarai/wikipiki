@@ -74,5 +74,5 @@ The app is designed to work with two types of users: readers (regular users) and
 - [x] An article editor for administrators
 - [ ] ~Create~ and rename articles within the app
 - [ ] User management dashboard for readers and administrators
-- [ ] Responsive UI
+- [X] Responsive UI
 - [ ] i18n support

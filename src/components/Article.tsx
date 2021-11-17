@@ -12,13 +12,13 @@ interface IProps {
 const Article = ({ showEdit = true, title, content, roles }: IProps) => {
   return (
     <section className='flex-grow overflow-y-auto flex flex-col items-center'>
-      <header className='flex flex-col md:flex-row md:items-center space-y-2 w-full md:w-2/3 px-8 md:px-0'>
-        <h1 className='pt-2 text-4xl font-bold'>{title}</h1>
+      <header className='flex flex-row items-center space-y-2 w-full md:w-2/3 px-8 md:px-0'>
+        <h1 className='flex-grow pt-2 text-4xl font-bold truncate'>{title}</h1>
         {roles?.includes('Administrators') && showEdit && (
           <Link href={`/wiki/${title}/edit`}>
             <a
               onClick={() => {}}
-              className='self-start md:self-end md:ml-auto bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'
+              className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'
             >
               Edit
             </a>

@@ -74,14 +74,14 @@ const Editor = ({
 
   return (
     <section className='mx-auto w-full h-full md:w-2/3 llex-grow overflow-y-auto flex flex-col items-center space-y-2'>
-      <header className='md:px-0 self-start'>
+      <header className='w-full px-8 md:px-0 self-start'>
         {create ? (
           <h1 className='pt-2 text-4xl font-bold'>Create a new article</h1>
         ) : (
           <h1 className='pt-2 text-4xl font-bold'>{`${title} (edit)`}</h1>
         )}
       </header>
-      <div className='w-full px-12 md:px-0 flex space-x-2 justify-end self-start'>
+      <div className='w-full px-8 md:px-0 pt-2 flex space-x-2 justify-end self-start'>
         <Checkbox label='Preview' checked={preview} onChange={setPreview} />
         <button
           onClick={handleDelete}
