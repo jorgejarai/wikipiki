@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { MdSearch, MdOutlineLogout, MdPostAdd } from 'react-icons/md';
 
-import RolesContext, { useRoles } from '../RolesContext';
+import { useRoles } from '../auth/RolesContext';
 import SearchBar from './SearchBar';
 
 const Header = () => {

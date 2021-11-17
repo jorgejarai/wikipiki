@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { useContext } from 'react';
-import RolesContext, { useRoles } from '../RolesContext';
 
+import { useRoles } from '../auth/RolesContext';
 import Markdown from './Markdown';
 
 interface IProps {

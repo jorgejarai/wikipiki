@@ -3,12 +3,12 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import fetchArticle from '../../../src/api/fetchArticle';
+import fetchRoles from '../../../src/auth/fetchRoles';
 import Article from '../../../src/components/Article';
 import Header from '../../../src/components/Header';
 import Loading from '../../../src/components/Loading';
-import fetchArticle from '../../../src/fetchArticle';
-import fetchRoles from '../../../src/fetchRoles';
-import NotFoundPage from '../../../src/NotFoundPage';
+import NotFoundPage from '../../../src/error_pages/NotFoundPage';
 
 interface IProps {
   showEdit: boolean;

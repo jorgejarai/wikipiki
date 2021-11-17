@@ -2,10 +2,10 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
+import fetchArticle from '../src/api/fetchArticle';
+import fetchRoles from '../src/auth/fetchRoles';
 import Article from '../src/components/Article';
 import Header from '../src/components/Header';
-import fetchArticle from '../src/fetchArticle';
-import fetchRoles from '../src/fetchRoles';
 
 interface IProps {
   title: string;

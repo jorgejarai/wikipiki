@@ -31,20 +31,22 @@ const Editor = ({
       title: create ? newTitle : title,
     });
 
-    const response = await fetch('/api/delete', {
-      method: 'POST',
+    const urlEncoded = encodeURIComponent(title);
+
+    const response = await fetch(`/api/wiki/${urlEncoded}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
       body,
     });
 
-    if (response.ok) {
+    const payload = await response.json();
+
+    if (response.ok && !payload.error) {
       router.push('/');
     } else {
-      const data = await response.json();
-
-      setErrorMessage(data.message);
+      setErrorMessage(payload.description);
     }
   };
 
@@ -52,23 +54,28 @@ const Editor = ({
     setErrorMessage('');
 
     const body = JSON.stringify(
-      create ? { title: newTitle, content } : { title, content }
+      create ? { title: newTitle, content } : { content }
     );
 
-    const response = await fetch(create ? '/api/new' : '/api/edit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body,
-    });
+    const urlEncoded = encodeURIComponent(title);
 
-    if (response.ok) {
+    const response = await fetch(
+      create ? '/api/wiki' : `/api/wiki/${urlEncoded}`,
+      {
+        method: create ? 'POST' : 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body,
+      }
+    );
+
+    const payload = await response.json();
+
+    if (response.ok && !payload.error) {
       router.push(`/wiki/${create ? newTitle : title}`);
     } else {
-      const data = await response.json();
-
-      setErrorMessage(data.message);
+      setErrorMessage(payload.description);
     }
   };
 

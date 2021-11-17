@@ -5,8 +5,8 @@ import { GetServerSideProps } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import fetchRoles from '../src/fetchRoles';
-import RolesContext from '../src/RolesContext';
+import fetchRoles from '../src/auth/fetchRoles';
+import RolesContext from '../src/auth/RolesContext';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const { roles } = pageProps;

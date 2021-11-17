@@ -2,13 +2,13 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import fetchRoles from '../src/auth/fetchRoles';
+import { useRoles } from '../src/auth/RolesContext';
 import Article from '../src/components/Article';
 import Editor from '../src/components/Editor';
 import Header from '../src/components/Header';
 import Loading from '../src/components/Loading';
-import fetchRoles from '../src/fetchRoles';
-import { useRoles } from '../src/RolesContext';
-import UnauthorizedPage from '../src/UnauthorizedPage';
+import UnauthorizedPage from '../src/error_pages/UnauthorizedPage';
 
 const WikiEdit = () => {
   const roles = useRoles();
