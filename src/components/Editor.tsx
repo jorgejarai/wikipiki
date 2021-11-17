@@ -90,12 +90,14 @@ const Editor = ({
       </header>
       <div className='w-full px-8 md:px-0 pt-2 flex space-x-2 justify-end self-start'>
         <Checkbox label='Preview' checked={preview} onChange={setPreview} />
-        <button
-          onClick={handleDelete}
-          className='bg-red-400 hover:bg-red-500 text-black rounded px-3 py-1.5 cursor-pointer'
-        >
-          Delete
-        </button>
+        {!create && (
+          <button
+            onClick={handleDelete}
+            className='bg-red-400 hover:bg-red-500 text-black rounded px-3 py-1.5 cursor-pointer'
+          >
+            Delete
+          </button>
+        )}
         <button
           onClick={handleSubmit}
           className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'
