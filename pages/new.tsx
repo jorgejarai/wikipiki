@@ -7,13 +7,11 @@ import Editor from '../src/components/Editor';
 import Header from '../src/components/Header';
 import Loading from '../src/components/Loading';
 import fetchRoles from '../src/fetchRoles';
+import { useRoles } from '../src/RolesContext';
 import UnauthorizedPage from '../src/UnauthorizedPage';
 
-interface IProps {
-  roles: string[] | null;
-}
-
-const WikiEdit = ({ roles }: IProps) => {
+const WikiEdit = () => {
+  const roles = useRoles();
   const router = useRouter();
 
   if (router.isFallback) {
@@ -28,9 +26,9 @@ const WikiEdit = ({ roles }: IProps) => {
         <Head>
           <title>{`Wikipiki`}</title>
         </Head>
-        <Header roles={roles} />
+        <Header />
         <div className='pb-16 h-full'>
-          <Article title={title} content={content} roles={roles} />
+          <Article title={title} content={content} />
         </div>
       </div>
     );
@@ -41,7 +39,7 @@ const WikiEdit = ({ roles }: IProps) => {
       <Head>
         <title>{`New article - Wikipiki`}</title>
       </Head>
-      <Header roles={roles} />
+      <Header />
       <div className='h{-full'>
         <Editor create={true} />
       </div>

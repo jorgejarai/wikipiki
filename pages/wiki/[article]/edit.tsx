@@ -1,6 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useContext } from 'react';
 
 import Article from '../../../src/components/Article';
 import Editor from '../../../src/components/Editor';
@@ -9,15 +10,16 @@ import Loading from '../../../src/components/Loading';
 import fetchArticle from '../../../src/fetchArticle';
 import fetchRoles from '../../../src/fetchRoles';
 import NotFoundPage from '../../../src/NotFoundPage';
+import { useRoles } from '../../../src/RolesContext';
 import UnauthorizedPage from '../../../src/UnauthorizedPage';
 
 interface IProps {
   title: string;
   content: string;
-  roles: string[] | null;
 }
 
-const WikiEdit = ({ title, content, roles }: IProps) => {
+const WikiEdit = ({ title, content }: IProps) => {
+  const roles = useRoles();
   const router = useRouter();
 
   if (router.isFallback) {
@@ -32,9 +34,9 @@ const WikiEdit = ({ title, content, roles }: IProps) => {
         <Head>
           <title>{`${title} - Wikipiki`}</title>
         </Head>
-        <Header roles={roles} />
+        <Header />
         <div className='pb-16 h-full'>
-          <Article title={title} content={content} roles={roles} />
+          <Article title={title} content={content} />
         </div>
       </div>
     );
@@ -46,13 +48,9 @@ const WikiEdit = ({ title, content, roles }: IProps) => {
         <Head>
           <title>{`${title} - Wikipiki`}</title>
         </Head>
-        <Header roles={roles} />
+        <Header />
         <div className='pb-16 h-full'>
-          <Article
-            title={NotFoundPage.title}
-            content={NotFoundPage.content}
-            roles={roles}
-          />
+          <Article title={NotFoundPage.title} content={NotFoundPage.content} />
         </div>
       </div>
     );
@@ -63,7 +61,7 @@ const WikiEdit = ({ title, content, roles }: IProps) => {
       <Head>
         <title>{`Editing ${title} - Wikipiki`}</title>
       </Head>
-      <Header roles={roles} />
+      <Header />
       <div className='h-full'>
         <Editor title={title} initialContent={content} />
       </div>

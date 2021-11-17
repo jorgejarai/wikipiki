@@ -10,19 +10,18 @@ import fetchRoles from '../src/fetchRoles';
 interface IProps {
   title: string;
   content: string;
-  roles: string[] | null;
 }
 
-const Home: NextPage<IProps> = ({ title, content, roles }: IProps) => {
+const Home: NextPage<IProps> = ({ title, content }: IProps) => {
   return (
     <div className='flex flex-col h-screen'>
       <Head>
         <title>{`${title} - Wikipiki`}</title>
         <meta charSet='utf-8' />
       </Head>
-      <Header roles={roles} />
+      <Header />
       <div className='pb-16'>
-        <Article title={title} content={content} roles={roles} />
+        <Article title={title} content={content} />
       </div>
     </div>
   );

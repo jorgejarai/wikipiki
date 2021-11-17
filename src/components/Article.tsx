@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { useContext } from 'react';
+import RolesContext, { useRoles } from '../RolesContext';
 
 import Markdown from './Markdown';
 
@@ -6,10 +8,11 @@ interface IProps {
   showEdit?: boolean;
   title: string;
   content: string;
-  roles: string[] | null;
 }
 
-const Article = ({ showEdit = true, title, content, roles }: IProps) => {
+const Article = ({ showEdit = true, title, content }: IProps) => {
+  const roles = useRoles();
+
   return (
     <section className='flex-grow overflow-y-auto flex flex-col items-center'>
       <header className='flex flex-row items-center space-y-2 w-full md:w-2/3 px-8 md:px-0'>

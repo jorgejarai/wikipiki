@@ -14,10 +14,9 @@ interface IProps {
   showEdit: boolean;
   title: string;
   content: string;
-  roles: string[] | null;
 }
 
-const Wiki: NextPage<IProps> = ({ showEdit, title, content, roles }) => {
+const Wiki: NextPage<IProps> = ({ showEdit, title, content }) => {
   const router = useRouter();
   const { user, isLoading } = useUser();
 
@@ -35,14 +34,9 @@ const Wiki: NextPage<IProps> = ({ showEdit, title, content, roles }) => {
         <title>{`${title} - Wikipiki`}</title>
         <meta charSet='utf-8' />
       </Head>
-      <Header roles={roles} />
+      <Header />
       <div className='pb-16'>
-        <Article
-          title={title}
-          content={content}
-          roles={roles}
-          showEdit={showEdit}
-        />
+        <Article title={title} content={content} showEdit={showEdit} />
       </div>
     </div>
   );

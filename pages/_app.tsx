@@ -1,10 +1,16 @@
 import '../styles/globals.css';
 
 import { UserProvider } from '@auth0/nextjs-auth0';
+import { GetServerSideProps } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-function MyApp({ Component, pageProps }: AppProps) {
+import fetchRoles from '../src/fetchRoles';
+import RolesContext from '../src/RolesContext';
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  const { roles } = pageProps;
+
   return (
     <>
       <Head>
@@ -16,10 +22,20 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <UserProvider>
-        <Component {...pageProps} />
+        <RolesContext.Provider value={roles}>
+          <Component {...pageProps} />
+        </RolesContext.Provider>
       </UserProvider>
     </>
   );
-}
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const roles = fetchRoles(req, res);
+
+  return {
+    props: { roles },
+  };
+};
 
 export default MyApp;

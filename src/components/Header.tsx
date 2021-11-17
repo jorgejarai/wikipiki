@@ -1,14 +1,12 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { MdSearch, MdOutlineLogout, MdPostAdd } from 'react-icons/md';
 
+import RolesContext, { useRoles } from '../RolesContext';
 import SearchBar from './SearchBar';
 
-interface IProps {
-  roles: string[] | null;
-}
-
-const Header = ({ roles }: IProps) => {
+const Header = () => {
+  const roles = useRoles();
   const [showSearch, setShowSearch] = useState(false);
 
   return (
