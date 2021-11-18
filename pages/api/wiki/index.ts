@@ -36,6 +36,13 @@ const getWiki = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
 
+  if (!(await articleExists(title as string))) {
+    return res.status(404).json({
+      error: 'not_found',
+      description: 'Article not found',
+    });
+  }
+
   const result = await fetchArticle(title as string);
 
   if (!result) {

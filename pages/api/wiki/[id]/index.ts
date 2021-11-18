@@ -1,9 +1,10 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import checkForAdmin from '../../../src/auth/checkForAdmin';
-import deleteArticle from '../../../src/api/deleteArticle';
-import updateArticle from '../../../src/api/updateArticle';
+import checkForAdmin from '../../../../src/auth/checkForAdmin';
+import deleteArticle from '../../../../src/api/deleteArticle';
+import updateArticle from '../../../../src/api/updateArticle';
+import articleExists from '../../../../src/api/articleExists';
 
 const wiki = async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader('Allow', 'GET, DELETE, OPTIONS, POST, PUT');
@@ -36,6 +37,13 @@ const editWiki = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
 
+  if (!(await articleExists(title as string))) {
+    return res.status(404).json({
+      error: 'not_found',
+      description: 'Article not found',
+    });
+  }
+
   const result = await updateArticle(title as string, content);
 
   if (!result) {
@@ -59,6 +67,13 @@ const deleteWiki = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({
       error: 'empty_title',
       description: 'Title is empty',
+    });
+  }
+
+  if (!(await articleExists(title as string))) {
+    return res.status(404).json({
+      error: 'not_found',
+      description: 'Article not found',
     });
   }
 

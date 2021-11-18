@@ -6,6 +6,7 @@ import fetchArticle from '../src/api/fetchArticle';
 import fetchRoles from '../src/auth/fetchRoles';
 import Article from '../src/components/Article';
 import Header from '../src/components/Header';
+import NoMainPage from '../src/error_pages/NoMainPage';
 
 interface IProps {
   title: string;
@@ -33,10 +34,12 @@ export const getServerSideProps = withPageAuthRequired({
     const content = await fetchArticle(title);
     const roles = await fetchRoles(req, res);
 
+    const { content: noMainPageContent } = NoMainPage;
+
     return {
       props: {
         title,
-        content,
+        content: content || noMainPageContent,
         roles,
       },
     };
