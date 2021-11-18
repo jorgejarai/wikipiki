@@ -12,7 +12,7 @@ const searchDocuments = async (search: string): Promise<string[]> => {
     const result = await articles
       .find(
         {
-          $text: { $search: search },
+          title: { $regex: search, $options: '$i' },
         },
         { limit: 10, projection: { title: 1 } }
       )
