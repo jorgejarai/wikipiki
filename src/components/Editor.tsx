@@ -87,7 +87,9 @@ const Editor = ({
         {create ? (
           <h1 className='pt-2 text-4xl font-bold'>{t`new_article_title`}</h1>
         ) : (
-          <h1 className='pt-2 text-4xl font-bold'>{t`page_edit_title`}</h1>
+          <h1 className='pt-2 text-4xl font-bold'>
+            {t('page_edit_title', { title })}
+          </h1>
         )}
       </header>
       <div className='w-full px-8 md:px-0 pt-2 flex space-x-2 justify-end self-start'>
