@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.0] - 2021-11-20
+
+### Added
+
+- Make the UI responsive
+- Enable article renaming
+- i18n support for UI
+
+### Changed
+
+- Replace article API for a RESTful one
+
+### Fixed
+
+- Hide Delete button in the article editor if it is new
+- Search articles in a more predictable way (only by title)
+
 ## [0.4.0] - 2021-11-15
 
 ### Added

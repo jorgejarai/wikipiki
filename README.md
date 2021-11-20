@@ -11,7 +11,7 @@ Setting up the app is fairly straightforward:
 1.  Get a Auth0 account and configure a tenant.
 
     1.  Create a role named `Administrators` within your tenant and add at least one user to it.
-    2.  In order for the backend to get the roles a user belongs to, go to Auth Pipeline > Rules in your dashboard, click the Create button, use the Empty rule template and paste this code. You may replace `https://myapp/role` by the key you want, given that you set it up too in the `ROLE_CLAIM_KEY` environment variable.
+    2.  In order for the backend to get the roles a user belongs to, go to Auth Pipeline > Rules in your dashboard, click the Create button, use the Empty rule template and paste this code.
 
              function (user, context, callback) {
                const assignedRoles = (context.authorization || {}).roles;
@@ -71,7 +71,7 @@ The app is designed to work with two types of users: readers (regular users) and
 - [x] Search articles
 - [x] Better hyperlinks
 - [x] An article editor for administrators
-- [X] ~Create~ and rename articles within the app
+- [X] Create and rename articles within the app
 - [ ] User management dashboard for readers and administrators
 - [X] Responsive UI
-- [ ] i18n support
+- [X] i18n support
