@@ -74,7 +74,7 @@ export const getServerSideProps = withPageAuthRequired({
         error: error || '',
         title,
         content: content || '',
-        showEdit: true,
+        showEdit: error === null,
       },
     };
   },
