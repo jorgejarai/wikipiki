@@ -4,7 +4,6 @@ import useTranslation from 'next-translate/useTranslation';
 import Head from 'next/head';
 
 import fetchArticle from '../src/api/fetchArticle';
-import fetchRoles from '../src/auth/fetchRoles';
 import Article from '../src/components/Article';
 import Header from '../src/components/Header';
 

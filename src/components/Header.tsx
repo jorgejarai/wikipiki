@@ -3,8 +3,8 @@ import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { MdSearch, MdOutlineLogout, MdPostAdd } from 'react-icons/md';
 
-import { useRoles } from '../auth/RolesContext';
 import SearchBar from './SearchBar';
+import useRoles from '../hooks/useRoles';
 
 const Header = () => {
   const { t } = useTranslation('wiki');

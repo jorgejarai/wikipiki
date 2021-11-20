@@ -3,11 +3,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 
-import { useRoles } from '../src/auth/RolesContext';
 import Article from '../src/components/Article';
 import Editor from '../src/components/Editor';
 import Header from '../src/components/Header';
 import Loading from '../src/components/Loading';
+import useRoles from '../src/hooks/useRoles';
 
 const WikiEdit = () => {
   const { t } = useTranslation('special_pages');
@@ -15,7 +15,7 @@ const WikiEdit = () => {
   const roles = useRoles();
   const router = useRouter();
 
-  if (router.isFallback) {
+  if (!roles || router.isFallback) {
     return <Loading />;
   }
 
@@ -30,6 +30,7 @@ const WikiEdit = () => {
           <Article
             title={t`unauthorized_title`}
             content={t`unauthorized_content`}
+            showEdit={false}
           />
         </div>
       </div>

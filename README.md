@@ -32,7 +32,6 @@ Setting up the app is fairly straightforward:
     - `AUTH0_CLIENT_ID`: The client ID for your Auth0 app.
     - `AUTH0_CLIENT_SECRET`: The secret for your client.
     - `START_ARTICLE`: The article the app loads when the user lands on `/`.
-    - `ROLE_CLAIM_KEY` (optional): Used by Auth0 to inject a user's roles into their session token. Defaults to `https://myapp/role`.
 
 4.  Build the project with `next build` and run the app with `next run`. If what you want to do is playing with the code, run instead `next dev` for running it in development mode. If you want to, you can use Vercel to deploy the app to the cloud and make it available for everyone you wish.
 
@@ -72,7 +71,7 @@ The app is designed to work with two types of users: readers (regular users) and
 - [x] Search articles
 - [x] Better hyperlinks
 - [x] An article editor for administrators
-- [ ] ~Create~ and rename articles within the app
+- [X] ~Create~ and rename articles within the app
 - [ ] User management dashboard for readers and administrators
 - [X] Responsive UI
 - [ ] i18n support

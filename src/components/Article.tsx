@@ -4,7 +4,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 
-import { useRoles } from '../auth/RolesContext';
+import useRoles from '../hooks/useRoles';
 import Markdown from './Markdown';
 
 interface IProps {

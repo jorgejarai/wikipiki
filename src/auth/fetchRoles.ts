@@ -26,7 +26,7 @@ const fetchRoles = async (req: any, res: any): Promise<string[] | null> => {
 
   const { idToken } = session;
   const payload = parseJwt(idToken);
-  const roles = payload[process.env.ROLE_CLAIM_KEY || 'https://myapp/role'];
+  const roles = payload['https://myapp/role'];
 
   return roles || [];
 };

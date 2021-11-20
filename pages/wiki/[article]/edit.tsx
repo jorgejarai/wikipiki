@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 
 import fetchArticle from '../../../src/api/fetchArticle';
-import { useRoles } from '../../../src/auth/RolesContext';
 import Article from '../../../src/components/Article';
 import Editor from '../../../src/components/Editor';
 import Header from '../../../src/components/Header';
 import Loading from '../../../src/components/Loading';
+import useRoles from '../../../src/hooks/useRoles';
 
 interface IProps {
   error: string | null;
@@ -21,7 +21,7 @@ const WikiEdit = ({ title, content }: IProps) => {
   const roles = useRoles();
   const router = useRouter();
 
-  if (router.isFallback) {
+  if (!roles || router.isFallback) {
     return <Loading />;
   }
 
@@ -46,7 +46,7 @@ const WikiEdit = ({ title, content }: IProps) => {
     return (
       <div className='flex flex-col h-screen'>
         <Head>
-          <title>{`${title} - Wikipiki`}</title>
+          <title>{`${t`not_found_title`} - Wikipiki`}</title>
         </Head>
         <Header />
         <div className='pb-16 h-full'>
@@ -59,7 +59,7 @@ const WikiEdit = ({ title, content }: IProps) => {
   return (
     <div className='flex flex-col h-screen'>
       <Head>
-        <title>{t(`page_edit_title`, { title })}</title>
+        <title>{t('wiki:page_edit_title', { title })}</title>
       </Head>
       <Header />
       <div className='h-full'>
