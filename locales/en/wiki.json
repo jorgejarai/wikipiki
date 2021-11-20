@@ -11,7 +11,7 @@
     "search": "Search",
     "submit": "Submit",
     "no_results_found": "No results found",
-    "page_edit_title": "Editando \"{{title}}\"",
+    "page_edit_title": "{{title}} (edit)",
     "new_article": "New article",
     "new_title": "New title",
     "new_article_title": "Create a new article",
