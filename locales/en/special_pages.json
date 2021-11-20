@@ -1,0 +1,10 @@
+{
+    "not_found_title": "Page not found",
+    "not_found_content": "I'm sorry, but there is no page with that name.",
+    "default_main_page_title": "Main page",
+    "default_main_page_content": "There is no main page created for this site (yet).",
+    "unauthorized_title": "Unauthorized",
+    "unauthorized_content": "I'm sorry, but you're not authorized to do this.",
+    "general_error_title": "Error",
+    "general_error_content": "There was an error processing your request. Please try later."
+}

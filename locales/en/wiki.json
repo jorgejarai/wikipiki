@@ -1,0 +1,21 @@
+{
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "log_out": "Log out",
+    "new_article_btn": "New article",
+    "ok": "OK",
+    "preview": "Preview",
+    "rename": "Rename",
+    "rename_title": "Rename article",
+    "search": "Search",
+    "submit": "Submit",
+    "no_results_found": "No results found",
+    "page_edit_title": "Editando \"{{title}}\"",
+    "new_article": "New article",
+    "new_title": "New title",
+    "new_article_title": "Create a new article",
+    "title": "Title",
+    "write_article_placeholder": "Write your article here",
+    "delete_confirm": "Are you sure you want to delete this post?"
+}

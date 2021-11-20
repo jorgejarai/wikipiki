@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 
@@ -55,6 +56,7 @@ interface IRenameDialogProps {
 }
 
 const RenameDialog = ({ title, show, setShow }: IRenameDialogProps) => {
+  const { t } = useTranslation('wiki');
   const router = useRouter();
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -62,7 +64,8 @@ const RenameDialog = ({ title, show, setShow }: IRenameDialogProps) => {
 
   useEffect(() => {
     setNewTitle(title);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show]);
 
   const handleSubmit = async () => {
     setErrorMessage('');
@@ -130,14 +133,14 @@ const RenameDialog = ({ title, show, setShow }: IRenameDialogProps) => {
                 as='h3'
                 className='text-lg font-medium leading-6 text-gray-900'
               >
-                Rename article
+                {t`rename_title`}
               </Dialog.Title>
 
               <div className='flex flex-col space-y-1 mt-2'>
                 <input
                   type='search'
                   className='rounded bg-gray-300 px-2 py-1 h-9 w-full'
-                  placeholder='New title'
+                  placeholder={t`new_title`}
                   value={newTitle}
                   onChange={(event) => {
                     setShow(true);
@@ -157,14 +160,14 @@ const RenameDialog = ({ title, show, setShow }: IRenameDialogProps) => {
                   className='flex items-center justify-center h-6 md:h-9 px-2 md:px-3 py-4 md:py-1.5 bg-gray-400 hover:bg-gray-500 rounded mr-2 cursor-pointer'
                   onClick={() => setShow(false)}
                 >
-                  Cancel
+                  {t`cancel`}
                 </button>
                 <button
                   type='button'
                   className='flex items-center justify-center h-6 md:h-9 px-2 md:px-3 py-4 md:py-1.5 bg-gray-400 hover:bg-gray-500 rounded mr-2 cursor-pointer'
                   onClick={handleSubmit}
                 >
-                  OK
+                  {t`ok`}
                 </button>
               </div>
             </div>

@@ -1,0 +1,9 @@
+{
+    "not_found_title": "Página no encontrada",
+    "not_found_content": "Lo siento, pero no encuentro la página que buscas.",
+    "default_main_page_title": "Portada",
+    "default_main_page_content": "No hay una portada creada para esta página (aún).",
+    "unauthorized_content": "Lo siento, pero no tienes permiso para hacer esto.",
+    "general_error_title": "Error",
+    "general_error_content": "Hubo un error procesando tu solicitud. Por favor, intenta más tarde."
+}

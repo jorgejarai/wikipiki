@@ -1,23 +1,23 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 
 import fetchArticle from '../../../src/api/fetchArticle';
-import fetchRoles from '../../../src/auth/fetchRoles';
 import { useRoles } from '../../../src/auth/RolesContext';
 import Article from '../../../src/components/Article';
 import Editor from '../../../src/components/Editor';
 import Header from '../../../src/components/Header';
 import Loading from '../../../src/components/Loading';
-import NotFoundPage from '../../../src/error_pages/NotFoundPage';
-import UnauthorizedPage from '../../../src/error_pages/UnauthorizedPage';
 
 interface IProps {
+  error: string | null;
   title: string;
   content: string;
 }
 
 const WikiEdit = ({ title, content }: IProps) => {
+  const { t } = useTranslation('special_pages');
   const roles = useRoles();
   const router = useRouter();
 
@@ -26,16 +26,17 @@ const WikiEdit = ({ title, content }: IProps) => {
   }
 
   if (!roles?.includes('Administrators')) {
-    const { title, content } = UnauthorizedPage;
-
     return (
       <div className='flex flex-col h-screen'>
         <Head>
-          <title>{`${title} - Wikipiki`}</title>
+          <title>{`${t`unauthorized_title`} - Wikipiki`}</title>
         </Head>
         <Header />
         <div className='pb-16 h-full'>
-          <Article title={title} content={content} />
+          <Article
+            title={t`unauthorized_title`}
+            content={t`unauthorized_content`}
+          />
         </div>
       </div>
     );
@@ -49,7 +50,7 @@ const WikiEdit = ({ title, content }: IProps) => {
         </Head>
         <Header />
         <div className='pb-16 h-full'>
-          <Article title={NotFoundPage.title} content={NotFoundPage.content} />
+          <Article title={t`not_found_title`} content={t`not_found_content`} />
         </div>
       </div>
     );
@@ -58,7 +59,7 @@ const WikiEdit = ({ title, content }: IProps) => {
   return (
     <div className='flex flex-col h-screen'>
       <Head>
-        <title>{`Editing ${title} - Wikipiki`}</title>
+        <title>{t(`page_edit_title`, { title })}</title>
       </Head>
       <Header />
       <div className='h-full'>
@@ -69,37 +70,15 @@ const WikiEdit = ({ title, content }: IProps) => {
 };
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res, params }) => {
+  getServerSideProps: async ({ params }) => {
     const { article: title } = params!;
-    const roles = await fetchRoles(req, res);
-
-    if (title === undefined) {
-      return {
-        props: {
-          title,
-          content: null,
-          roles,
-        },
-      };
-    }
-
-    const content = await fetchArticle(title as string);
-
-    if (content === undefined) {
-      return {
-        props: {
-          title,
-          content: null,
-          roles,
-        },
-      };
-    }
+    const { content, error } = await fetchArticle(title as string);
 
     return {
       props: {
+        error: error || '',
         title,
-        content,
-        roles,
+        content: content || '',
       },
     };
   },

@@ -2,7 +2,12 @@ import { MongoClient } from 'mongodb';
 
 const client = new MongoClient(process.env.MONGODB_URI!!);
 
-const fetchArticle = async (title: string): Promise<string | undefined> => {
+type ArticleResult = {
+  error: string | null;
+  content: string | null;
+};
+
+const fetchArticle = async (title: string): Promise<ArticleResult> => {
   try {
     await client.connect();
 
@@ -12,12 +17,21 @@ const fetchArticle = async (title: string): Promise<string | undefined> => {
     const res = await articles.findOne({ title });
 
     if (!res) {
-      return undefined;
+      return {
+        error: 'not_found',
+        content: null,
+      };
     }
 
-    return res['content'];
+    return {
+      error: null,
+      content: res['content'],
+    };
   } catch (e) {
-    return '';
+    return {
+      error: 'general_error',
+      content: null,
+    };
   } finally {
     await client.close();
   }

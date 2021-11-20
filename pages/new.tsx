@@ -1,16 +1,17 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 
-import fetchRoles from '../src/auth/fetchRoles';
 import { useRoles } from '../src/auth/RolesContext';
 import Article from '../src/components/Article';
 import Editor from '../src/components/Editor';
 import Header from '../src/components/Header';
 import Loading from '../src/components/Loading';
-import UnauthorizedPage from '../src/error_pages/UnauthorizedPage';
 
 const WikiEdit = () => {
+  const { t } = useTranslation('special_pages');
+
   const roles = useRoles();
   const router = useRouter();
 
@@ -19,16 +20,17 @@ const WikiEdit = () => {
   }
 
   if (!roles?.includes('Administrators')) {
-    const { title, content } = UnauthorizedPage;
-
     return (
       <div className='flex flex-col h-screen'>
         <Head>
-          <title>{`Wikipiki`}</title>
+          <title>{`${t`unauthorized_title`} - Wikipiki`}</title>
         </Head>
         <Header />
         <div className='pb-16 h-full'>
-          <Article title={title} content={content} />
+          <Article
+            title={t`unauthorized_title`}
+            content={t`unauthorized_content`}
+          />
         </div>
       </div>
     );
@@ -37,26 +39,14 @@ const WikiEdit = () => {
   return (
     <div className='flex flex-col h-screen'>
       <Head>
-        <title>{`New article - Wikipiki`}</title>
+        <title>{`${t`new_article`} - Wikipiki`}</title>
       </Head>
       <Header />
-      <div className='h{-full'>
+      <div className='h-full'>
         <Editor create={true} />
       </div>
     </div>
   );
 };
 
-export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res }) => {
-    const roles = await fetchRoles(req, res);
-
-    return {
-      props: {
-        roles,
-      },
-    };
-  },
-});
-
-export default WikiEdit;
+export default withPageAuthRequired(WikiEdit);

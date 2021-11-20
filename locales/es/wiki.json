@@ -1,0 +1,21 @@
+{
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "log_out": "Cerrar sesión",
+    "new_article_btn": "Nuevo artículo",
+    "ok": "OK",
+    "preview": "Vista previa",
+    "rename": "Renombrar",
+    "rename_title": "Renombrar artículo",
+    "search": "Buscar",
+    "submit": "Enviar",
+    "no_results_found": "No hay resultados",
+    "page_edit_title": "{{title}} (edit)",
+    "new_article": "Nuevo artículo",
+    "new_title": "Nuevo título",
+    "new_article_title": "Crear un nuevo artículo",
+    "title": "Título",
+    "write_article_placeholder": "Escribe tu artículo aquí",
+    "delete_confirm": "¿Estás seguro de eliminar este artículo?"
+}

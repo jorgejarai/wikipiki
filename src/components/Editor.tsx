@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 
 import Checkbox from './Checkbox';
@@ -15,6 +16,7 @@ const Editor = ({
   title = '',
   initialContent = '',
 }: IProps) => {
+  const { t } = useTranslation('wiki');
   const router = useRouter();
 
   const [newTitle, setNewTitle] = useState(title);
@@ -23,7 +25,7 @@ const Editor = ({
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this post?')) {
+    if (!window.confirm(t`delete_confirm`)) {
       return;
     }
 
@@ -80,29 +82,29 @@ const Editor = ({
   };
 
   return (
-    <section className='mx-auto w-full h-full md:w-2/3 llex-grow overflow-y-auto flex flex-col items-center space-y-2'>
+    <section className='mx-auto w-full h-full md:w-2/3 flex-grow overflow-y-auto flex flex-col items-center space-y-2'>
       <header className='w-full px-8 md:px-0 self-start'>
         {create ? (
-          <h1 className='pt-2 text-4xl font-bold'>Create a new article</h1>
+          <h1 className='pt-2 text-4xl font-bold'>{t`new_article_title`}</h1>
         ) : (
-          <h1 className='pt-2 text-4xl font-bold'>{`${title} (edit)`}</h1>
+          <h1 className='pt-2 text-4xl font-bold'>{t`page_edit_title`}</h1>
         )}
       </header>
       <div className='w-full px-8 md:px-0 pt-2 flex space-x-2 justify-end self-start'>
-        <Checkbox label='Preview' checked={preview} onChange={setPreview} />
+        <Checkbox label={t`preview`} checked={preview} onChange={setPreview} />
         {!create && (
           <button
             onClick={handleDelete}
             className='bg-red-400 hover:bg-red-500 text-black rounded px-3 py-1.5 cursor-pointer'
           >
-            Delete
+            {t`delete`}
           </button>
         )}
         <button
           onClick={handleSubmit}
           className='bg-gray-400 hover:bg-gray-500 rounded px-3 py-1.5 cursor-pointer'
         >
-          Submit
+          {t`submit`}
         </button>
       </div>
       {errorMessage !== '' && (
@@ -113,7 +115,7 @@ const Editor = ({
       {create && (
         <div className='w-full px-8 md:px-0 flex justify-between self-start'>
           <input
-            placeholder='Title'
+            placeholder={t`title`}
             className='focus:outline-none border-gray-400 border p-2 w-full rounded'
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
@@ -127,7 +129,7 @@ const Editor = ({
           </div>
         ) : (
           <textarea
-            placeholder='Write your article here'
+            placeholder={t`write_article_placeholder`}
             className='font-mono text-sm focus:outline-none resize-none w-full h-full p-4 rounded border border-gray-400'
             onChange={(e) => setContent(e.target.value)}
             value={content}

@@ -1,9 +1,12 @@
 import Link from 'next/link';
+import useTranslation from 'next-translate/useTranslation';
 import { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { useDebounce } from 'use-debounce';
 
 const SearchBar = () => {
+  const { t } = useTranslation('wiki');
+
   const [show, setShow] = useState(false);
 
   const [search, setSearch] = useState('');
@@ -42,7 +45,7 @@ const SearchBar = () => {
         <input
           type='search'
           className='rounded bg-gray-300 px-2 py-1 h-9 w-full'
-          placeholder='Search'
+          placeholder={t`search`}
           value={search}
           onChange={(event) => {
             setShow(true);
@@ -71,7 +74,7 @@ const SearchBar = () => {
               );
             })
           ) : (
-            <span className='text-gray-700'>No results found</span>
+            <span className='text-gray-700'>{t`no_results_found`}</span>
           )}
         </div>
       )}

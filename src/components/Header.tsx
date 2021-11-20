@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { MdSearch, MdOutlineLogout, MdPostAdd } from 'react-icons/md';
 
@@ -6,7 +7,9 @@ import { useRoles } from '../auth/RolesContext';
 import SearchBar from './SearchBar';
 
 const Header = () => {
+  const { t } = useTranslation('wiki');
   const roles = useRoles();
+
   const [showSearch, setShowSearch] = useState(false);
 
   return (
@@ -21,7 +24,7 @@ const Header = () => {
             {roles?.includes('Administrators') && (
               <Link href='/new'>
                 <a className='flex items-center justify-center h-6 md:h-9 px-2 md:px-3 py-4 md:py-1.5 bg-gray-400 hover:bg-gray-500 rounded cursor-pointer'>
-                  <span className='hidden md:block'>New article</span>
+                  <span className='hidden md:block'>{t`new_article_btn`}</span>
                   <MdPostAdd className='md:hidden' />
                 </a>
               </Link>
@@ -41,7 +44,7 @@ const Header = () => {
             </div>
             <Link href='/api/auth/logout'>
               <a className='flex items-center justify-center h-6 md:h-9 px-2 md:px-3 py-4 md:py-1.5 bg-gray-400 hover:bg-gray-500 rounded mr-2 cursor-pointer'>
-                <span className='hidden md:block'>Log out</span>
+                <span className='hidden md:block'>{t`log_out`}</span>
                 <MdOutlineLogout className='md:hidden' />
               </a>
             </Link>

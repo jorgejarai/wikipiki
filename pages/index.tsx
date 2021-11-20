@@ -1,19 +1,23 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import type { NextPage } from 'next';
+import useTranslation from 'next-translate/useTranslation';
 import Head from 'next/head';
 
 import fetchArticle from '../src/api/fetchArticle';
 import fetchRoles from '../src/auth/fetchRoles';
 import Article from '../src/components/Article';
 import Header from '../src/components/Header';
-import NoMainPage from '../src/error_pages/NoMainPage';
 
 interface IProps {
+  error: string | null;
   title: string;
   content: string;
+  roles: string[] | null;
 }
 
-const Home: NextPage<IProps> = ({ title, content }: IProps) => {
+const Home: NextPage<IProps> = ({ error, title, content }: IProps) => {
+  const { t } = useTranslation('special_pages');
+
   return (
     <div className='flex flex-col h-screen'>
       <Head>
@@ -22,25 +26,25 @@ const Home: NextPage<IProps> = ({ title, content }: IProps) => {
       </Head>
       <Header />
       <div className='pb-16'>
-        <Article title={title} content={content} />
+        <Article
+          title={error ? t(`${error}_title`) : title}
+          content={error ? t(`${error}_content`) : content}
+        />
       </div>
     </div>
   );
 };
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res }) => {
+  getServerSideProps: async () => {
     const title = process.env.START_ARTICLE!;
-    const content = await fetchArticle(title);
-    const roles = await fetchRoles(req, res);
-
-    const { content: noMainPageContent } = NoMainPage;
+    const { content, error } = await fetchArticle(title);
 
     return {
       props: {
+        error: error || '',
         title,
-        content: content || noMainPageContent,
-        roles,
+        content: content || '',
       },
     };
   },

@@ -1,22 +1,28 @@
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 
 import fetchArticle from '../../../src/api/fetchArticle';
-import fetchRoles from '../../../src/auth/fetchRoles';
 import Article from '../../../src/components/Article';
 import Header from '../../../src/components/Header';
 import Loading from '../../../src/components/Loading';
-import NotFoundPage from '../../../src/error_pages/NotFoundPage';
 
 interface IProps {
+  error: string | null;
   showEdit: boolean;
   title: string;
   content: string;
 }
 
-const Wiki: NextPage<IProps> = ({ showEdit, title, content }) => {
+const Wiki: NextPage<IProps> = ({
+  error,
+  showEdit,
+  title,
+  content,
+}: IProps) => {
+  const { t } = useTranslation('special_pages');
   const router = useRouter();
   const { user, isLoading } = useUser();
 
@@ -36,38 +42,39 @@ const Wiki: NextPage<IProps> = ({ showEdit, title, content }) => {
       </Head>
       <Header />
       <div className='pb-16'>
-        <Article title={title} content={content} showEdit={showEdit} />
+        <Article
+          title={error ? t(`${error}_title`) : title}
+          content={error ? t(`${error}_content`) : content}
+          showEdit={showEdit}
+        />
       </div>
     </div>
   );
 };
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res, params }) => {
-    const roles = await fetchRoles(req, res);
-
+  getServerSideProps: async ({ params }) => {
     const { article: title } = params!;
 
     if (title === undefined) {
       return {
-        props: { ...NotFoundPage, roles, showEdit: false },
+        props: {
+          error: 'general_error',
+          title: '',
+          content: '',
+          showEdit: false,
+        },
       };
     }
 
-    const content = await fetchArticle(title as string);
-
-    if (content === undefined) {
-      return {
-        props: { ...NotFoundPage, roles, showEdit: false },
-      };
-    }
+    const { error, content } = await fetchArticle(title as string);
 
     return {
       props: {
-        title: title,
-        content: content,
+        error: error || '',
+        title,
+        content: content || '',
         showEdit: true,
-        roles,
       },
     };
   },
